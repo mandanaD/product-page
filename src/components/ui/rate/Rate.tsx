@@ -1,28 +1,23 @@
-import type {RateProps} from "./Rate.types.ts";
+import {Label} from "@/components/ui/fields/Label";
+import {useState} from "react";
+import {RateProps} from "@/components/ui/rate/Rate.types";
 import {cva} from "class-variance-authority";
+import {ErrorMessage} from "@/components/ui/fields/ErrorMessage";
 
 const Rate = ({
                   disabled = false,
                   size = "md",
                   className,
                   length = 5,
-                  shape = "starBold",
-                  value = 0,
+                  value,
+                  onChange,
+                  error,
+                  required = true,
+                  label = "",
                   ...props
-              }: RateProps) => {
+              }: RateProps & { value?: number; onChange?: (val: number) => void }) => {
     const classes = cva("", {
         variants: {
-            shape: {
-                squircle: "mask-squircle",
-                heart: "mask-heart",
-                hexagon: "mask-hexagon",
-                hexagon2: "mask-hexagon-2",
-                decagon: "mask-decagon",
-                pentagon: "mask-pentagon",
-                star: "mask-star",
-                starBold: "mask-star-2",
-                circle: "mask-circle",
-            },
             size: {
                 xs: "rating-xs",
                 sm: "rating-sm",
@@ -33,24 +28,39 @@ const Rate = ({
         },
     });
 
+    const [internal, setInternal] = useState(value ?? 0);
+    const activeValue = value ?? internal;
+
+    const handleSelect = (val: number) => {
+        if (disabled) return;
+        if (onChange) {
+            onChange(val);
+        } else {
+            setInternal(val);
+        }
+    };
+
     return (
-        <div
-            className={`rating space-x-1 ${classes({size})} ${className || ""}`}
-            {...props}
-        >
-            {Array.from({length}).map((_, i) => (
-                <input
-                    key={i}
-                    type="radio"
-                    name="rating"
-                    className={`${classes({shape})} mask bg-orange-400`}
-                    aria-label={`${i + 1} star`}
-                    disabled={disabled}
-                    defaultChecked={i + 1 === value}
-                    readOnly={!disabled}
-                />
-            ))}
-        </div>
+        <fieldset className={`fieldset w-fit relative ${disabled ? "opacity-70" : ""}`}>
+            <Label required={required} text={label} />
+            <div className={`rating space-x-1 ${classes({ size })} ${className || ""}`} {...props}>
+                {Array.from({ length }).map((_, i) => (
+                    <input
+                        key={i}
+                        type="radio"
+                        name="rating"
+                        className={`${
+                            activeValue >= i + 1 ? "opacity-100" : "opacity-30"
+                        } bg-orange-400 mask-star-2 appearance-none mask transition-colors disabled:cursor-not-allowed`}
+                        onChange={() => handleSelect(i + 1)}
+                        aria-label={`${i + 1} star`}
+                        disabled={disabled}
+                        checked={activeValue >= i + 1}
+                    />
+                ))}
+            </div>
+            <ErrorMessage text={error} />
+        </fieldset>
     );
 };
 
