@@ -64,7 +64,7 @@ const InputField = ({
             />
             <div
                 dir={accept==="number"?"ltr":"rlt"}
-                className={`input bg-gray-100 flex gap-1 items-center w-full ${
+                className={`input bg-base-300 flex gap-1 items-center w-full ${
                     error
                         ? "focus:border-error/50 focus:outline-error/50 focus-within:border-error/50 focus-within:outline-error/50 border-error/50"
                         : "focus:border-primary/50 focus:outline-primary/50 focus-within:border-primary/50 focus-within:outline-primary/50 border-gray-300/60"

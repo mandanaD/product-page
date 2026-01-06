@@ -19,7 +19,7 @@ const Textarea = ({
             />
             <textarea
                 placeholder={placeholder || ""}
-                className={`w-full textarea bg-gray-100 ${error
+                className={`w-full textarea bg-base-300 ${error
                     ? "focus:border-error/50 focus:outline-error/50 focus-within:border-error/50 focus-within:outline-error/50 border-error/50"
                     : "focus:border-primary/50 focus:outline-primary/50 focus-within:border-primary/50 focus-within:outline-primary/50 border-gray-300/60"
                 }`}
