@@ -1,36 +1,58 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Product Page
 
-## Getting Started
+This is a **Next.js + TypeScript** project with **TailwindCSS** and **DaisyUI**.  
+I used **React Hook Form**, **Zod**, and **Lucide-React** to build this product page.
 
-First, run the development server:
+The page shows **product details**, lets you **select color and size**, and changes the product **image** based on the
+selected color. At the bottom, it shows a **list of reviews** for the selected color.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+I used **context (`useProduct`)** to save the selected color and control which image and reviews are shown.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+There is a **form to add a new review** at the top of the review list, using **RHF + Zod**, and it just logs the
+submitted value in the console.  
+The **add to cart form** also uses RHF and logs the values in the console.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+I used **mock data** to show product details and reviews.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## Project Structure
+````
+src
+├── app                   # Next.js pages and routing
+├── components            # All React components
+│   ├── layout            # Layout components (footer)
+│   ├── pages             # Page-specific components
+│   └── ui                # Reusable UI components
+│       ├── button        # Button component
+│       ├── fields        # Form fields
+│       │   ├── InputField
+│       │   ├── Radio
+│       │   └── Textarea
+│       └── rate          # Rating component
+├── context               # React context (useProduct)
+├── hook                  # Custom hooks
+├── mock                  # Mock data (product.)
+├── shema                 # Zod schemas
+└── type                  # TypeScript types
+````
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
+## How to Run
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/mandanaD/product-page.git
+2. Install dependencies::
+   ```bash
+   npm i
+3. Install dependencies::
+   ```bash
+   npm run dev
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+4. Install dependencies::
+   ```bash
+   http://localhost:3000
