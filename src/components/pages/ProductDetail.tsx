@@ -1,37 +1,34 @@
 "use client"
-import React, {useState} from "react";
+import React from "react";
 import Image from "next/image";
+import {useProduct} from "@/context/ProductContext";
+import {ProductColor} from "@/type/product.type";
 
-type ProductImage = {
-    id: string;
-    url: string;
-    alt: string;
-};
-
-export const ProductDetail = ({ images }: { images: ProductImage[] }) => {
-    const [selectedImage, setSelectedImage] = useState(0)
+export const ProductDetail = ({colors}: { colors: ProductColor[] }) => {
+    const {setSelectedColorId, selectedColorId} = useProduct()
     return (
-        <div className="space-y-4">
-            <div className=" rounded-lg overflow-hidden">
-                <img
-                    src={images[selectedImage].url}
+        <div className="space-y-4 relative">
+            <div className="rounded-lg overflow-hidden w-full aspect-square relative">
+                <Image
+                    src={colors && (colors.find((item) => item.id === selectedColorId)?.image?.url || colors[0]?.image.url)}
                     alt="Product"
                     className="w-full aspect-square object-cover"
+                    fill={true}
                 />
             </div>
 
             <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
-                {images.map((img, index) => (
+                {colors && colors.map((clr) => (
                     <button
-                        key={img.id}
-                        onClick={() => setSelectedImage(index)}
+                        key={clr.id}
+                        onClick={() => setSelectedColorId(clr.id)}
                         className={`relative rounded-lg overflow-hidden border-2 transition-all aspect-square cursor-pointer  ${
-                            selectedImage === index ? 'border-primary' : 'border-gray-200'
+                            selectedColorId === clr.id ? 'border-primary' : 'border-gray-200'
                         }`}
                     >
                         <Image
-                            src={img.url}
-                            alt={img.alt}
+                            src={clr?.image?.url}
+                            alt={clr?.image?.alt}
                             fill={true}
                             className="w-full object-cover"
                         />
