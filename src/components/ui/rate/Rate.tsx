@@ -15,7 +15,7 @@ const Rate = ({
                   required = true,
                   label = "",
                   ...props
-              }: RateProps & { value?: number; onChange?: (val: number) => void }) => {
+              }: RateProps & {onChange?: (val: number) => void }) => {
     const classes = cva("", {
         variants: {
             size: {
