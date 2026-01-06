@@ -8,19 +8,36 @@ import {zodResolver} from "@hookform/resolvers/zod";
 import Button from "@/components/ui/button/Button";
 import {ShoppingCart} from "lucide-react";
 import RadioFieldController from "@/components/ui/fields/Radio/RadioFieldController";
+import {useProduct} from "@/context/ProductContext";
+import {useEffect} from "react";
 
-export const ProductForm = ({data}:{data: Product}) => {
+export const ProductForm = ({data}: { data: Product }) => {
+    const {selectedColorId, setSelectedColorId} = useProduct();
+
     const {
         handleSubmit,
         control,
-        formState: { isValid }
+        formState: {isValid},
+        watch
     } = useForm<AddCardType>({
         resolver: zodResolver(addCardShema),
         defaultValues: {
             size: "",
             color: ""
+        },
+        values: {
+            size: "",
+            color: selectedColorId || ""
         }
     });
+
+    const color = watch("color")
+
+    useEffect(() => {
+        if (color) {
+            setSelectedColorId(color)
+        }
+    }, [color]);
 
     const onSubmit = (data: AddCardType) => {
         console.log("data:", {
@@ -47,7 +64,7 @@ export const ProductForm = ({data}:{data: Product}) => {
                         control={control}
                         options={useColorOptions(data.colors)}
                     />
-            </div>
+                </div>
             </div>
 
             <Button
