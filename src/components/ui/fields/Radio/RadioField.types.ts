@@ -3,6 +3,7 @@ import { ReactNode } from "react";
 export interface RadioOption {
     label: string;
     value: string;
+    colorHex?:string
 }
 
 export interface RadioFieldProps {
@@ -16,4 +17,5 @@ export interface RadioFieldProps {
     className?: string;
     onChange?: (value: string) => void;
     icon?: ReactNode;
+    variant?: "default" | "color";
 }
