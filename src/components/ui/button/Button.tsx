@@ -3,7 +3,7 @@ import type {ButtonProps} from "./Button.types.ts";
 
 const Button = ({variant="primary", size="md", appearance="solid", shape="regular", children = "", isLoading = false, ...props}: ButtonProps) => {
     const classes = cva(
-        "btn h-14!",
+        "btn",
         {
             variants: {
                 variant: {
@@ -21,8 +21,8 @@ const Button = ({variant="primary", size="md", appearance="solid", shape="regula
                 },
                 size: {
                     xs: "btn-xs",
-                    sm: "btn-sm",
-                    md: "btn-md",
+                    sm: "btn-sm h-10!",
+                    md: "btn-md h-14!",
                     lg: "btn-lg",
                     xl: "btn-xl",
                 },
