@@ -4,12 +4,20 @@ export type ProductImage = {
     alt: string;
 };
 
+export type ReviewType = {
+    full_name: string
+    rating: number
+    comment: string
+    date: string
+}
+
 export type ProductColor = {
     id: string;
     name: string;
     hex: string;
     in_stock: boolean;
     image: ProductImage;
+    reviews: ReviewType[]
 };
 
 export type Product = {
