@@ -1,9 +1,12 @@
 import type {ComponentProps} from "react";
 
 export type RateProps = ComponentProps<"div"> & {
-    shape?: "squircle" | "heart" | "hexagon" | "hexagon2" | "decagon" | "pentagon" | "star" | "starBold" | "circle";
+    name?:string,
     size?: "xs" | "sm" | "md" | "lg" | "xl",
     length?:number,
     disabled?:boolean,
     value?:number,
+    error?: string;
+    label?: string;
+    required?: boolean;
 };
