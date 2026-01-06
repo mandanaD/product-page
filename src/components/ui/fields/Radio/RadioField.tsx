@@ -3,6 +3,14 @@ import { Label } from "@/components/ui/fields/Label";
 import { ErrorMessage } from "@/components/ui/fields/ErrorMessage";
 import type { RadioFieldProps } from "./RadioField.types";
 
+const fieldsetClasses = cva("fieldset w-full", {
+    variants: {
+        disabled: {
+            true: "opacity-70 pointer-events-none",
+        },
+    },
+});
+
 const RadioField = ({
                         label,
                         name,
@@ -12,41 +20,47 @@ const RadioField = ({
                         required = true,
                         disabled = false,
                         className = "",
+                        variant = "default",
                         onChange,
                     }: RadioFieldProps) => {
-
-    const fieldsetClasses = cva("fieldset w-full", {
-        variants: {
-            disabled: {
-                true: "opacity-70 pointer-events-none",
-            },
-        },
-    });
-
     return (
         <fieldset className={fieldsetClasses({ disabled })}>
-            {label && (
-                <Label
-                    text={label}
-                    required={required}
-                />
-            )}
+            {label && <Label text={label} required={required} />}
 
-            <div className="flex gap-2 flex-wrap mt-1">
+            <div
+                className={`mt-2 flex gap-2 ${
+                    variant === "color" ? "flex-wrap" : "flex-wrap"
+                }`}
+            >
                 {options.map((option) => {
                     const isChecked = value === option.value;
+
+                    const baseClasses =
+                        "cursor-pointer transition-all select-none";
+
+                    const sizeVariantClasses =
+                        variant === "color"
+                            ? "w-9 h-9 rounded-full flex items-center justify-center"
+                            : "flex items-center gap-1.5 rounded-md px-4 py-1";
+
+                    const stateClasses = isChecked
+                        ? "ring-2 ring-primary"
+                        : "ring-1 ring-gray-300 hover:ring-primary/50";
 
                     return (
                         <label
                             key={option.value}
                             className={`
-                                flex items-center gap-1.5 cursor-pointer rounded-md border px-4 py-1 transition
-                                ${isChecked
-                                ? "border-primary bg-primary/5"
-                                : "border-none bg-base-300 hover:text-primary text-secondary"
+                ${baseClasses}
+                ${sizeVariantClasses}
+                ${stateClasses}
+                ${className}
+              `}
+                            style={
+                                variant === "color"
+                                    ? { backgroundColor: option.colorHex }
+                                    : undefined
                             }
-                                ${className}
-                            `}
                         >
                             <input
                                 type="radio"
@@ -55,9 +69,14 @@ const RadioField = ({
                                 checked={isChecked}
                                 disabled={disabled}
                                 onChange={() => onChange?.(option.value)}
-                                className="accent-primary"
+                                className="sr-only"
                             />
-                            <span className="text-sm">{option.label}</span>
+
+                            {variant !== "color" && (
+                                <span className="text-sm font-medium">
+                  {option.label}
+                </span>
+                            )}
                         </label>
                     );
                 })}
