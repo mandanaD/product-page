@@ -2,16 +2,17 @@ import React from 'react';
 import {PRODUCT_DATA} from "@/mock/product-data";
 import {ProductDetail} from "@/components/pages/ProductDetail";
 import {ProductForm} from "@/components/pages/ProductForm";
+import ProductReviews from "@/components/pages/ProductReviews";
 
 export default function ProductPage() {
 
-    const images = PRODUCT_DATA.colors.map(c => c.image);
+    const colors = PRODUCT_DATA.colors;
 
     return (
         <div className="min-h-screen ">
-            <div className="max-w-[1400px] mx-auto px-4 py-8">
+            <div className="max-w-[1400px] mx-auto px-4 py-8 space-y-10">
                 <div className="grid lg:grid-cols-2 gap-8">
-                    <ProductDetail images={images}/>
+                    <ProductDetail colors={colors}/>
                     <div className=" border border-gray-100 rounded-lg p-3 sm:p-6 lg:p-8 space-y-6">
                         <div>
                             <h1 className="text-lg sm:text-2xl lg:text-3xl font-bold text-gray-900">
@@ -43,6 +44,7 @@ export default function ProductPage() {
                         </div>
                     </div>
                 </div>
+                <ProductReviews/>
             </div>
         </div>
     );
