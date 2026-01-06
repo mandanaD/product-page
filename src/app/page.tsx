@@ -44,7 +44,7 @@ export default function ProductPage() {
                         </div>
                     </div>
                 </div>
-                <ProductReviews/>
+                <ProductReviews colors={colors}/>
             </div>
         </div>
     );
